@@ -17,6 +17,11 @@
   <div class="logo"><i class="fa-solid fa-square-poll-vertical"></i></div>
   <div class="spacer"></div>
   {% if session %}
+    {% if session["type"] == "streamer" %}
+      <i class="icon streamer fa-solid fa-video"></i>
+    {% elif session["type"] == "moderator" %}
+      <i class="icon moderator fa-solid fa-shield-halved"></i>
+    {% endif %}
     <div class="username">{{ session["username"] }}</div>
     <a class="button" href="/logout"><i class="fa-solid fa-right-from-bracket"></i></a>
   {% else %}
@@ -25,5 +30,9 @@
 </header>
 {% block content %}
 {% endblock %}
+<script type="text/javascript">
+const streamUrl = "{{ url_for("sse.stream") }}"
+</script>
+<script type="text/javascript" src="/static/dressup.js"></script>
 </body>
 </html>

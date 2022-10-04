@@ -1,6 +1,8 @@
 class Config:
   SECRET_KEY = None
 
+  REDIS_URL = None
+
   TWITCH_CLIENT_ID = None
   TWITCH_CLIENT_SECRET = None
 

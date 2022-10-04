@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_sse import sse
 
 from dressup.auth import oauth
 from dressup.config import Config
@@ -11,6 +12,8 @@ def create_app():
 
   setup_routes(app)
   oauth.init_app(app)
+
+  app.register_blueprint(sse, url_prefix="/stream")
 
   return app
 

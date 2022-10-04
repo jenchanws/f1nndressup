@@ -59,6 +59,20 @@ header {
   font-size: 3em;
 }
 
+header .icon {
+  padding: 6px;
+  border-radius: 4px;
+  color: white;
+}
+
+.icon.streamer {
+  background-color: #e42624;
+}
+
+.icon.moderator {
+  background-color: #27ac29;
+}
+
 .username {
   font-size: 1.2rem;
   font-weight: 500;
