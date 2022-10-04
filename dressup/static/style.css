@@ -1,0 +1,94 @@
+html,
+body {
+  margin: 0;
+  height: 100%;
+  font-size: 18px;
+}
+
+:root {
+  --max-width: 960px;
+
+  --twitch: #9146ff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #333333;
+    --fg: white;
+
+    --btn-bg: #666666;
+    --btn-bg-hover: #444444;
+    --btn-fg: white;
+  }
+}
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: #f0f0f0;
+    --fg: black;
+
+    --btn-bg: #a0a0a0;
+    --btn-bg-hover: #c0c0c0;
+    --btn-fg: white;
+  }
+}
+
+body {
+  padding: 20px;
+  font-family: BasierSquare;
+
+  color: var(--fg);
+  background-color: var(--bg);
+}
+
+header,
+main {
+  max-width: var(--max-width);
+  margin: auto;
+}
+
+header {
+  display: flex;
+  align-items: center;
+}
+
+.spacer {
+  flex-grow: 1;
+}
+
+.logo {
+  font-size: 3em;
+}
+
+.username {
+  font-size: 1.2rem;
+  font-weight: 500;
+  padding: 0 8px;
+}
+
+.button {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background-color: var(--btn-bg);
+  color: var(--btn-fg);
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.button:hover {
+  background-color: var(--btn-bg-hover);
+}
+
+.button.twitch {
+  background-color: var(--twitch);
+  color: white;
+  padding: 8px 10px;
+  border-radius: 6px;
+}
+
+.button.twitch i {
+  font-size: 1.2rem;
+  margin-right: 2px;
+  transform: translateY(2px);
+}

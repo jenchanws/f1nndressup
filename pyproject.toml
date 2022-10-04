@@ -12,6 +12,16 @@ packages = [
 python = "^3.9"
 Flask = "^2.2.2"
 Flask-SSE = "^1.0.0"
+Flask-RESTful = "^0.3.9"
+Flask-Admin = "^1.6.0"
+flask-marshmallow = "^0.14.0"
+Flask-SQLAlchemy = "^2.5.1"
+marshmallow-sqlalchemy = "^0.28.1"
+Authlib = "^1.1.0"
+requests = "^2.28.1"
+
+[tool.poetry.dev-dependencies]
+gunicorn = "^20.1.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

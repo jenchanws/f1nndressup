@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>{% block title %}Dress Up{% endblock %}</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/static/style.css" type="text/css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/fontawesome.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/solid.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/brands.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdn.sammdot.ca/fonts/BasierSquare.css" type="text/css">
+{% block head %}
+{% endblock %}
+</head>
+<body>
+<header>
+  <div class="logo"><i class="fa-solid fa-square-poll-vertical"></i></div>
+  <div class="spacer"></div>
+  {% if session %}
+    <div class="username">{{ session["username"] }}</div>
+    <a class="button" href="/logout"><i class="fa-solid fa-right-from-bracket"></i></a>
+  {% else %}
+    <a class="button twitch" href="/login"><i class="fa-brands fa-twitch"></i> Login with Twitch</a>
+  {% endif %}
+</header>
+{% block content %}
+{% endblock %}
+</body>
+</html>
