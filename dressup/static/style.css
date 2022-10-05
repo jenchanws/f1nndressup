@@ -295,6 +295,10 @@ button[type="submit"]:hover {
   margin-bottom: 12px;
 }
 
+.poll label .option-stats {
+  font-size: 0.9rem;
+}
+
 .poll label .percent-bar {
   position: absolute;
   top: 0;

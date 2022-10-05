@@ -37,7 +37,7 @@ def index():
 @api.route("/create", methods=["GET"])
 def create():
   categories = app.session.query(Category).all()
-  durations = {"30s": 30, "1m": 60, "2m": 120, "3m": 180, "5m": 300}
+  durations = {"5s": 5, "30s": 30, "1m": 60, "2m": 120, "3m": 180, "5m": 300}
   return render_template(
     "create.html.j2", categories=categories, durations=durations
   )
@@ -82,7 +82,7 @@ def end():
   if not poll:
     return redirect("/")
 
-  poll.cleanup()
+  poll.end(requester=session["username"])
   return redirect("/")
 
 

@@ -15,6 +15,19 @@ src.addEventListener("poll-end", (e) => {
 })
 
 src.addEventListener("vote", (e) => {
-  const data = JSON.parse(e.data)
-  console.log(data)
+  const data = JSON.parse(e.data).poll
+  Object.keys(data).forEach((cat_id) => {
+    const options = data[cat_id][1]
+    options.forEach(([name, count, percent], i) => {
+      let el = document.querySelector(`#option-${cat_id}-${i + 1} + label`)
+      let countEl = el.querySelector(".option-count")
+      let percentEl = el.querySelector(".option-percent")
+      let barEl = el.querySelector(".percent-bar")
+
+      countEl.textContent = "" + count
+      percentEl.textContent = "" + percent
+
+      barEl.style.width = percent + "%"
+    })
+  })
 })

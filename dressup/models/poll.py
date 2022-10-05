@@ -1,12 +1,14 @@
-from flask import current_app as app
+from datetime import datetime, timezone
+from flask import current_app as app, session
 from flask_sse import sse
 from sqlalchemy import Column, DateTime, desc, Integer, String
-from sqlalchemy.dialects.postgresql import ARRAY
+from sqlalchemy.dialects.postgresql import ARRAY, JSON
 from sqlalchemy.types import TIMESTAMP
 
 from dressup.models.base import Base
 from dressup.models.category import Category
 from dressup.models.redis import redis
+from dressup.database import create_session
 from dressup.schedule import sched
 
 
@@ -22,6 +24,7 @@ class Poll(Base):
   end_user = Column(String(32))
 
   categories = Column(ARRAY(Integer))
+  final_votes = Column(JSON(none_as_null=True))
 
   @staticmethod
   def active():
@@ -36,10 +39,12 @@ class Poll(Base):
     duration = int((self.end_time - self.start_time).total_seconds())
     redis.expire("poll:active", duration)
 
-    with app.app_context():
-      sched.add_job(
-        f"cleanup-{self.id}", self.cleanup, next_run_time=self.end_time
-      )
+    sched.add_job(
+      f"cleanup-{self.id}",
+      Poll.cleanup,
+      args=[self.id],
+      next_run_time=self.end_time,
+    )
 
     sse.publish(None, type="poll-start")
 
@@ -62,6 +67,9 @@ class Poll(Base):
     sse.publish(self.info(), type="vote")
 
   def poll(self):
+    if self.final_votes:
+      return self.final_votes
+
     categories = (
       app.session.query(Category)
       .filter(Category.id.in_(self.categories[:]))
@@ -76,6 +84,8 @@ class Poll(Base):
     }
 
   def info(self):
+    if self.final_votes:
+      return {"poll": self.final_votes}
     return {"poll": self.poll()}
 
   def has_vote_from(self, user_id):
@@ -85,19 +95,49 @@ class Poll(Base):
   def most_recent():
     return app.session.query(Poll).order_by(desc(Poll.start_time)).first()
 
-  def cleanup(self):
+  def end(self, requester):
+    self.final_votes = self.poll()
+
+    self.end_time = datetime.now(timezone.utc)
+    self.end_user = requester
+
+    app.session.add(self)
+    app.session.commit()
+
     redis.delete("poll:active")
     redis.persist("poll:active")
-
-    votes = {
-      category: redis.hgetall(f"poll:{self.id}:votes:{category}")
-      for category in self.categories[:]
-    }
 
     redis.delete(
       *(f"poll:{self.id}:votes:{category}" for category in self.categories[:])
     )
     redis.delete(f"poll:{self.id}:voted")
 
-    with app.app_context():
-      sse.publish(None, type="poll-end")
+    sse.publish(None, type="poll-end")
+
+  @staticmethod
+  def cleanup(id):
+    session = create_session()
+    poll = session.query(Poll).filter_by(id=id).first()
+    if not poll:
+      return
+
+    categories = (
+      session.query(Category).filter(Category.id.in_(poll.categories[:])).all()
+    )
+    poll.final_votes = {
+      c.id: (
+        c.display_name,
+        poll.votes_in_category(c),
+      )
+      for c in categories
+    }
+    session.add(poll)
+    session.commit()
+
+    redis.delete("poll:active")
+    redis.persist("poll:active")
+
+    redis.delete(
+      *(f"poll:{id}:votes:{category}" for category in poll.categories[:])
+    )
+    redis.delete(f"poll:{id}:voted")

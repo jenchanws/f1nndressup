@@ -10,8 +10,13 @@
     {% for (option, count, percent) in options %}
       <input type="radio" name="category-{{ cat_id }}" id="option-{{ cat_id }}-{{ loop.index }}" value="{{ option }}">
       <label for="option-{{ cat_id }}-{{ loop.index }}">
-        <div class="percent-bar" style="width: 72%;"></div>
-        <span class="label">{{ option }} ({{ count }} / {{ percent }}%)</span>
+        <div class="percent-bar" style="width: {{ percent }}%;"></div>
+        <span class="label">
+          <span class="option-name">{{ option }}</span>
+          <span class="option-stats">
+            (<span class="option-count">{{ count }}</span> /
+            <span class="option-percent">{{ percent }}</span>%)</span>
+          </span>
       </label>
     {% endfor %}
     </div>
