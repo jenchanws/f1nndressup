@@ -84,9 +84,12 @@ class Poll(Base):
     }
 
   def info(self):
-    if self.final_votes:
-      return {"poll": self.final_votes}
-    return {"poll": self.poll()}
+    return {
+      "poll": self.final_votes or self.poll(),
+      "started_by": self.start_user,
+      "start_time": self.start_time,
+      "end_time": self.end_time,
+    }
 
   def has_vote_from(self, user_id):
     return bool(redis.sismember(f"poll:{self.id}:voted", user_id))

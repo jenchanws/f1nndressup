@@ -336,3 +336,12 @@ form .poll input:checked + label {
 form .poll input:checked + label .percent-bar {
   display: none;
 }
+
+.poll-meta {
+  font-size: 0.9rem;
+  text-align: left;
+  color: var(--btn-bg);
+  font-style: italic;
+  margin-top: -20px;
+  margin-bottom: 30px;
+}

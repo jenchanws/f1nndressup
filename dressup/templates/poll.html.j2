@@ -22,6 +22,16 @@
     </div>
   {% endfor %}
   </div>
+  <div class="poll-meta">
+    {% if current %}
+      Poll started {{ poll["start_time"].strftime("%c") }}
+      {% if is_admin %}
+        by {{ poll["started_by"] }}
+      {% endif %}
+    {% else %}
+      Poll ended {{ poll["end_time"].strftime("%c") }}
+    {% endif %}
+  </div>
 {% if current and is_admin %}
   <a class="button" href="/end">End Poll</a>
 {% endif %}
