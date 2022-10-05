@@ -6,7 +6,7 @@ from dressup.models import Base
 
 
 def setup_database(app):
-  engine = create_engine(app.config["DATABASE_URL"])
+  engine = create_engine(app.config["DATABASE_URL"], pool_size=20)
   Session = sessionmaker(autocommit=False, autoflush=False, bind=engine)
   session = scoped_session(Session)
 
@@ -14,7 +14,7 @@ def setup_database(app):
 
 
 def create_session():
-  engine = create_engine(Config.DATABASE_URL)
+  engine = create_engine(Config.DATABASE_URL, pool_size=20)
   Session = sessionmaker(autocommit=False, autoflush=False, bind=engine)
   session = scoped_session(Session)
   return session

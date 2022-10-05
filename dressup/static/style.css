@@ -297,6 +297,17 @@ button[type="submit"]:hover {
   text-align: left;
 }
 
+.countdown {
+  text-align: left;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+#time-left {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
 .poll {
   margin: 30px -20px;
   display: flex;

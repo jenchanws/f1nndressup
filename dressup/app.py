@@ -25,6 +25,10 @@ def create_app():
 
   app.register_blueprint(sse, url_prefix="/stream")
 
+  @app.teardown_appcontext
+  def shutdown_session(exception=None):
+    app.session.remove()
+
   return app
 
 
