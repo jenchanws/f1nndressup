@@ -3,16 +3,19 @@
 {% block content %}
 <main>
   {% if current_poll %}
+    {% with poll = current_poll.info(), current = True, can_vote = can_vote %}
+      {% include "poll.html.j2" %}
+    {% endwith %}
   {% else %}
-    <p>No active poll.</p>
-
+    {% if last_poll %}
+      {% with poll = last_poll.info(), current = False, can_vote = False %}
+        {% include "poll.html.j2" %}
+      {% endwith %}
+    {% endif %}
     {% if is_admin %}
     <p>
       <a class="button" href="/create">Create Poll</a>
     </p>
-    {% endif %}
-
-    {% if last_poll %}
     {% endif %}
   {% endif %}
 </main>

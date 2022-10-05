@@ -1,0 +1,28 @@
+{% if can_vote %}
+<form action="/vote" method="POST">
+{% else %}
+<div>
+{% endif %}
+  <div class="poll">
+  {% for cat_id, (category, options) in poll["poll"].items() %}
+    <div class="category">
+    <h4>{{ category }}</h4>
+    {% for (option, count, percent) in options %}
+      <input type="radio" name="category-{{ cat_id }}" id="option-{{ cat_id }}-{{ loop.index }}" value="{{ option }}">
+      <label for="option-{{ cat_id }}-{{ loop.index }}">
+        <div class="percent-bar" style="width: 72%;"></div>
+        <span class="label">{{ option }} ({{ count }} / {{ percent }}%)</span>
+      </label>
+    {% endfor %}
+    </div>
+  {% endfor %}
+  </div>
+{% if current and is_admin %}
+  <a class="button" href="/end">End Poll</a>
+{% endif %}
+{% if can_vote %}
+  <button type="submit">Vote</button>
+</form>
+{% else %}
+</div>
+{% endif %}

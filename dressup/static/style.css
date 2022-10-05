@@ -15,6 +15,13 @@ body {
   --twitch: #9146ff;
   --moderator: #27ac29;
   --streamer: #e42624;
+
+  --vote-option-bg: white;
+  --vote-option-bg-hover: #a6d6f8;
+  --vote-option-bg-selected: #89c9f6;
+  --vote-option-percent-bg: #cccccc;
+  --vote-option-percent-bg-hover: #55b1f2;
+  --vote-option-percent-bg-selected: #0394fc;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -80,7 +87,7 @@ header {
 main {
   padding-top: 20px;
   text-align: center;
-  height: calc(100% - 100px);
+  min-height: calc(100% - 100px);
 
   display: flex;
   flex-direction: column;
@@ -252,4 +259,76 @@ button[type="submit"] {
 
 button[type="submit"]:hover {
   background-color: var(--submit-hover);
+}
+
+.poll {
+  text-align: left;
+  margin: 30px -20px;
+  display: flex;
+  flex-flow: row wrap;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.poll .category {
+  position: relative;
+  flex-basis: 450px;
+  margin: 20px 20px;
+}
+
+.poll .category h4 {
+  margin: 0;
+  padding-bottom: 8px;
+  font-size: 1.1em;
+}
+
+.poll input[type="radio"] {
+  display: none;
+}
+
+.poll label {
+  position: relative;
+  display: block;
+  height: 2rem;
+  background-color: var(--vote-option-bg);
+  border-radius: 4px;
+  margin-bottom: 12px;
+}
+
+.poll label .percent-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: inline-block;
+  height: 2rem;
+  background-color: var(--vote-option-percent-bg);
+  border-radius: 4px;
+  transition: width 0.5s ease-in-out 0s;
+}
+
+.poll label .label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: inline-block;
+  line-height: 2rem;
+  padding-left: 8px;
+}
+
+form .poll label:hover {
+  background-color: var(--vote-option-bg-hover);
+  cursor: pointer;
+}
+
+form .poll label:hover .percent-bar {
+  display: none;
+}
+
+form .poll input:checked + label {
+  background-color: var(--vote-option-bg-selected);
+  cursor: pointer;
+}
+
+form .poll input:checked + label .percent-bar {
+  display: none;
 }

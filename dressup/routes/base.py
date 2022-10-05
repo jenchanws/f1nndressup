@@ -19,9 +19,16 @@ api = Blueprint("base", __name__)
 
 @api.route("/")
 def index():
+  poll = Poll.active()
+  can_vote = (
+    poll is not None
+    and session.get("user_id", False)
+    and not poll.has_vote_from(session["user_id"])
+  )
   return render_template(
     "index.html.j2",
-    current_poll=Poll.active(),
+    current_poll=poll,
+    can_vote=can_vote,
     is_admin=is_admin(),
     last_poll=Poll.most_recent(),
   )
@@ -62,4 +69,33 @@ def start_poll():
 
   poll.set_active()
 
+  return redirect("/")
+
+
+@api.route("/end")
+def end():
+  if not is_admin():
+    return redirect("/")
+
+  poll = Poll.active()
+
+  if not poll:
+    return redirect("/")
+
+  poll.cleanup()
+  return redirect("/")
+
+
+@api.route("/vote", methods=["POST"])
+def vote():
+  if not session:
+    return redirect("/")
+
+  poll = Poll.active()
+
+  if not poll:
+    return redirect("/")
+
+  vote = {int(key.split("-", 1)[1]): val for key, val in request.form.items()}
+  poll.record_vote(session["user_id"], vote)
   return redirect("/")

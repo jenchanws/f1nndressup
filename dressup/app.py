@@ -7,6 +7,7 @@ from dressup.database import setup_database
 from dressup.config import Config
 from dressup.models.redis import redis
 from dressup.routes import setup_routes
+from dressup.schedule import sched
 
 
 def create_app():
@@ -18,6 +19,9 @@ def create_app():
   setup_admin(app)
   oauth.init_app(app)
   redis.init_app(app)
+
+  sched.init_app(app)
+  sched.start()
 
   app.register_blueprint(sse, url_prefix="/stream")
 

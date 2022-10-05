@@ -1,6 +1,7 @@
 class Config:
   SECRET_KEY = None
 
+  DATABASE_URL = None
   REDIS_URL = None
 
   TWITCH_CLIENT_ID = None
