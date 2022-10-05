@@ -1,0 +1,34 @@
+{% extends "base.html.j2" %}
+
+{% block content %}
+<main>
+  <form action="/create" method="POST">
+    <h3>Select categories to vote on:</h3>
+
+    {% if categories %}
+      <div class="categories">
+      {% for cat in categories %}
+        <input type="checkbox" name="categories" value="{{ cat.id }}" id="{{ cat.display_name }}">
+        <label for="{{ cat.display_name }}"><div>{{ cat.display_name }}</div>({{ cat.options | length }} options)</label>
+      {% endfor %}
+      </div>
+
+      <div class="duration">
+      {% for (display, value) in durations.items() %}
+        <input type="radio" name="duration" value="{{ value }}" id="duration-{{ value }}">
+        <label for="duration-{{ value }}">{{ display }}</label>
+      {% endfor %}
+      </div>
+    {% else %}
+      <p>No categories found.</p>
+    {% endif %}
+
+    <div class="footer">
+      <a class="button" href="/">Cancel</a>
+      {% if categories %}
+        <button type="submit">Start Poll</button>
+      {% endif %}
+    </div>
+  </form>
+</main>
+{% endblock %}

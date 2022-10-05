@@ -1,6 +1,7 @@
 from authlib.common.urls import add_params_to_uri
 from authlib.integrations.flask_client import OAuth
 from authlib.integrations.requests_client import OAuth2Session
+from flask import session
 from urllib.parse import quote
 
 from dressup.config import Config
@@ -46,7 +47,11 @@ def get_user_info(user_id):
     return user_info
 
 
-def user_is_following(user_id):
+def user_id():
+  return session.get("user_id", None)
+
+
+def user_is_following():
   with twitch() as tw:
     tok = tw.fetch_token(
       "https://id.twitch.tv/oauth2/token",
@@ -54,7 +59,7 @@ def user_is_following(user_id):
     )
     resp = tw.get(
       "https://api.twitch.tv/helix/users/follows",
-      params=dict(from_id=user_id, to_id=Config.STREAMER_ID),
+      params=dict(from_id=user_id(), to_id=Config.STREAMER_ID),
       headers={
         "Authorization": f"Bearer {tok['access_token']}",
         "Client-Id": Config.TWITCH_CLIENT_ID,
@@ -63,3 +68,7 @@ def user_is_following(user_id):
     resp.raise_for_status()
     follows = resp.json()["data"]
     return bool(follows)
+
+
+def is_admin():
+  return session.get("type", None) in {"moderator", "streamer"}

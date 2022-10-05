@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 html,
 body {
   margin: 0;
@@ -9,6 +13,8 @@ body {
   --max-width: 960px;
 
   --twitch: #9146ff;
+  --moderator: #27ac29;
+  --streamer: #e42624;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -19,6 +25,16 @@ body {
     --btn-bg: #666666;
     --btn-bg-hover: #444444;
     --btn-fg: white;
+
+    --submit: #72b7e8;
+    --submit-hover: #3d9adb;
+
+    --option-bg: #555555;
+    --option-bg-hover: #777777;
+    --option-bg-selected: #72b7e8;
+    --option-fg-selected: white;
+    --option-border: none;
+    --option-border-selected: none;
   }
 }
 @media (prefers-color-scheme: light) {
@@ -29,6 +45,16 @@ body {
     --btn-bg: #a0a0a0;
     --btn-bg-hover: #c0c0c0;
     --btn-fg: white;
+
+    --submit: #0394fc;
+    --submit-hover: #55b1f2;
+
+    --option-bg: white;
+    --option-bg-hover: #cccccc;
+    --option-bg-selected: #0394fc;
+    --option-fg-selected: white;
+    --option-border: black;
+    --option-border-selected: #0394fc;
   }
 }
 
@@ -51,6 +77,25 @@ header {
   align-items: center;
 }
 
+main {
+  padding-top: 20px;
+  text-align: center;
+  height: calc(100% - 100px);
+
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+}
+
+form {
+  text-align: left;
+}
+
+p {
+  margin: 8px 0;
+}
+
 .spacer {
   flex-grow: 1;
 }
@@ -66,11 +111,11 @@ header .icon {
 }
 
 .icon.streamer {
-  background-color: #e42624;
+  background-color: var(--streamer);
 }
 
 .icon.moderator {
-  background-color: #27ac29;
+  background-color: var(--moderator);
 }
 
 .username {
@@ -79,9 +124,12 @@ header .icon {
   padding: 0 8px;
 }
 
-.button {
+.button,
+button {
   display: inline-block;
   padding: 3px 8px;
+  border: none;
+  font-size: 1rem;
   border-radius: 4px;
   background-color: var(--btn-bg);
   color: var(--btn-fg);
@@ -90,8 +138,14 @@ header .icon {
   -webkit-user-select: none;
 }
 
-.button:hover {
+button {
+  padding: 4px 9px;
+}
+
+.button:hover,
+button:hover {
   background-color: var(--btn-bg-hover);
+  cursor: pointer;
 }
 
 .button.twitch {
@@ -105,4 +159,97 @@ header .icon {
   font-size: 1.2rem;
   margin-right: 2px;
   transform: translateY(2px);
+}
+
+.categories {
+  display: flex;
+  flex-flow: row wrap;
+  margin-left: -6px;
+  margin-right: -6px;
+}
+
+.categories input[type="checkbox"] {
+  display: none;
+}
+
+.categories label {
+  flex-basis: 230px;
+  border: 1px solid var(--option-border);
+  background-color: var(--option-bg);
+  padding: 12px 16px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  margin: 6px;
+  opacity: 70%;
+}
+
+.categories label:hover {
+  background-color: var(--option-bg-hover);
+  cursor: pointer;
+}
+
+.categories input[type="checkbox"]:checked + label {
+  color: var(--option-fg-selected);
+  background-color: var(--option-bg-selected);
+  border-color: var(--option-border-selected);
+  opacity: 100%;
+}
+
+.categories label > div {
+  font-size: 1.1rem;
+}
+
+.duration {
+  display: flex;
+  margin: 30px auto;
+}
+
+.duration input[type="radio"] {
+  display: none;
+}
+
+.duration label {
+  border: 1px solid var(--option-border);
+  border-right-width: 0;
+  background-color: var(--option-bg);
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.duration input[type="radio"]:first-child + label {
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+}
+
+.duration label:last-child {
+  border-right-width: 1px;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+
+.duration label:hover {
+  background-color: var(--option-bg-hover);
+  cursor: pointer;
+}
+
+.duration input[type="radio"]:checked + label {
+  color: var(--option-fg-selected);
+  background-color: var(--option-bg-selected);
+}
+
+form .footer {
+  margin-top: 30px;
+}
+
+form .footer > * {
+  margin-right: 8px;
+}
+
+button[type="submit"] {
+  background-color: var(--submit);
+}
+
+button[type="submit"]:hover {
+  background-color: var(--submit-hover);
 }

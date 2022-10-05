@@ -2,6 +2,18 @@
 
 {% block content %}
 <main>
+  {% if current_poll %}
+  {% else %}
+    <p>No active poll.</p>
 
+    {% if is_admin %}
+    <p>
+      <a class="button" href="/create">Create Poll</a>
+    </p>
+    {% endif %}
+
+    {% if last_poll %}
+    {% endif %}
+  {% endif %}
 </main>
 {% endblock %}

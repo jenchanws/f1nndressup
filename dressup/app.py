@@ -1,8 +1,11 @@
 from flask import Flask
 from flask_sse import sse
 
+from dressup.admin import setup_admin
 from dressup.auth import oauth
+from dressup.database import setup_database
 from dressup.config import Config
+from dressup.models.redis import redis
 from dressup.routes import setup_routes
 
 
@@ -11,7 +14,10 @@ def create_app():
   app.config.from_object(Config())
 
   setup_routes(app)
+  setup_database(app)
+  setup_admin(app)
   oauth.init_app(app)
+  redis.init_app(app)
 
   app.register_blueprint(sse, url_prefix="/stream")
 
