@@ -15,13 +15,6 @@ body {
   --twitch: #9146ff;
   --moderator: #27ac29;
   --streamer: #e42624;
-
-  --vote-option-bg: white;
-  --vote-option-bg-hover: #a6d6f8;
-  --vote-option-bg-selected: #89c9f6;
-  --vote-option-percent-bg: #cccccc;
-  --vote-option-percent-bg-hover: #55b1f2;
-  --vote-option-percent-bg-selected: #0394fc;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -42,6 +35,13 @@ body {
     --option-fg-selected: white;
     --option-border: none;
     --option-border-selected: none;
+
+    --vote-option-bg: #555555;
+    --vote-option-bg-hover: #777777;
+    --vote-option-bg-selected: #72b7e8;
+    --vote-option-percent-bg: #777777;
+    --vote-option-percent-bg-hover: #55b1f2;
+    --vote-option-percent-bg-selected: #0394fc;
   }
 }
 @media (prefers-color-scheme: light) {
@@ -62,6 +62,13 @@ body {
     --option-fg-selected: white;
     --option-border: black;
     --option-border-selected: #0394fc;
+
+    --vote-option-bg: white;
+    --vote-option-bg-hover: #a6d6f8;
+    --vote-option-bg-selected: #89c9f6;
+    --vote-option-percent-bg: #cccccc;
+    --vote-option-percent-bg-hover: #55b1f2;
+    --vote-option-percent-bg-selected: #0394fc;
   }
 }
 
@@ -108,7 +115,32 @@ p {
 }
 
 .logo {
-  font-size: 3em;
+  display: flex;
+}
+
+.logo i {
+  font-size: 3rem;
+  margin-right: 12px;
+}
+
+.logo .title {
+  font-size: 1.8rem;
+  font-style: italic;
+  font-weight: bold;
+}
+
+.logo .subtitle {
+  margin-top: -0.4rem;
+}
+
+.logo .subtitle a {
+  color: var(--text);
+  font-size: 0.8rem;
+  text-decoration: none;
+}
+
+.logo .subtitle a:hover {
+  text-decoration: underline;
 }
 
 header .icon {
