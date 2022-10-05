@@ -12,3 +12,5 @@ class Config:
   TWITCH_AUTH_SCOPES = []
 
   MODERATOR_ALLOWLIST = {}  # username (all lowercase) -> numeric ID
+
+  DURATIONS = {}  # display text -> number of seconds

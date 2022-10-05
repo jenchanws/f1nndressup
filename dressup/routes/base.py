@@ -12,6 +12,7 @@ from flask_sse import sse
 from sqlalchemy.dialects.postgresql import array
 
 from dressup.auth import is_admin
+from dressup.config import Config
 from dressup.models import Category, Poll
 
 api = Blueprint("base", __name__)
@@ -37,9 +38,8 @@ def index():
 @api.route("/create", methods=["GET"])
 def create():
   categories = app.session.query(Category).all()
-  durations = {"5s": 5, "30s": 30, "1m": 60, "2m": 120, "3m": 180, "5m": 300}
   return render_template(
-    "create.html.j2", categories=categories, durations=durations
+    "create.html.j2", categories=categories, durations=Config.DURATIONS
   )
 
 
