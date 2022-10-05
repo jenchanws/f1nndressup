@@ -1,7 +1,7 @@
 let src = new EventSource(streamUrl)
 
 src.addEventListener("poll-start", (e) => {
-  if (location.href.test(/create/)) {
+  if (/create/.test(location.href)) {
     location.href = "/"
   } else {
     location.reload()
@@ -9,7 +9,7 @@ src.addEventListener("poll-start", (e) => {
 })
 
 src.addEventListener("poll-end", (e) => {
-  if (!location.href.test(/create/)) {
+  if (!/create/.test(location.href)) {
     location.reload()
   }
 })
@@ -31,3 +31,26 @@ src.addEventListener("vote", (e) => {
     })
   })
 })
+
+function updateCountdown(secsLeft) {
+  if (secsLeft <= 0) {
+    secsLeft = 0
+    location.href = "/"
+  }
+  const mins = "" + Math.floor(secsLeft / 60)
+  let secs = secsLeft - mins * 60
+  secs = secs < 10 ? "0" + secs : "" + secs
+
+  const timeStr = `${mins}:${secs}`
+  const timeEl = document.getElementById("time-left")
+  timeEl.textContent = timeStr
+
+  setTimeout(() => {
+    updateCountdown(secsLeft - 1)
+  }, 1000)
+}
+
+try {
+  const secsLeft = Math.floor((endTime - new Date()) / 1000)
+  updateCountdown(secsLeft)
+} catch {}

@@ -1,7 +1,15 @@
+{% if current %}
+<div class="countdown">
+Poll ends in <span id="time-left"></span>
+</div>
+<script type="text/javascript">
+const endTime = new Date("{{ poll["end_time"].isoformat() }}")
+</script>
+{% endif %}
 {% if can_vote %}
-<form action="/vote" method="POST">
+<form action="/vote" method="POST" class="container">
 {% else %}
-<div>
+<div class="container">
 {% endif %}
   <div class="poll">
   {% for cat_id, (category, options) in poll["poll"].items() %}

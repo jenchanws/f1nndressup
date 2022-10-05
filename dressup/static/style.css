@@ -293,8 +293,11 @@ button[type="submit"]:hover {
   background-color: var(--submit-hover);
 }
 
-.poll {
+.container {
   text-align: left;
+}
+
+.poll {
   margin: 30px -20px;
   display: flex;
   flex-flow: row wrap;
