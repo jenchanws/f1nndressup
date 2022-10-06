@@ -140,6 +140,7 @@ p {
 .logo i {
   font-size: 3rem;
   margin-right: 12px;
+  transform: translateY(3px);
 }
 
 .logo .title {
