@@ -87,6 +87,7 @@ class Poll(Base):
     return {
       "poll": self.final_votes or self.poll(),
       "started_by": self.start_user,
+      "ended_by": self.end_user,
       "start_time": self.start_time,
       "end_time": self.end_time,
     }

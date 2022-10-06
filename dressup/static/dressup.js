@@ -34,7 +34,7 @@ src.addEventListener("vote", (e) => {
 
 function updateCountdown(secsLeft) {
   if (secsLeft <= 0) {
-    secsLeft = 0
+    document.getElementById("time-left").textContent = "0:00"
     location.href = "/"
     return
   }

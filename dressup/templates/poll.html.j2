@@ -38,7 +38,16 @@ const endTime = new Date("{{ poll["end_time"].isoformat() }}")
         by {{ poll["started_by"] }}
       {% endif %}
     {% else %}
-      Poll ended {{ poll["end_time"].strftime("%c") }}
+      Poll ended
+      {% if is_admin %}
+        {% if poll["ended_by"] %}
+          {{ poll["end_time"].strftime("%c") }} by {{ poll["ended_by"] }}
+        {% else %}
+          automatically {{ poll["end_time"].strftime("%c") }}
+        {% endif %}
+      {% else %}
+        {{ poll["end_time"].strftime("%c") }}
+      {% endif %}
     {% endif %}
   </div>
 {% if can_vote %}
