@@ -30,6 +30,7 @@ const endTime = new Date("{{ poll["end_time"].isoformat() }}")
     </div>
   {% endfor %}
   </div>
+<div class="footer">
   <div class="poll-meta">
     {% if current %}
       Poll started {{ poll["start_time"].strftime("%c") }}
@@ -40,14 +41,19 @@ const endTime = new Date("{{ poll["end_time"].isoformat() }}")
       Poll ended {{ poll["end_time"].strftime("%c") }}
     {% endif %}
   </div>
-{% if current and is_admin %}
-  <form action="/end" method="POST" class="container">
-    <button type="submit">End Poll</button>
-  </form>
-{% endif %}
 {% if can_vote %}
   <button type="submit">Vote</button>
+  {% if current and is_admin %}
+    <button type="submit" formaction="/end" class="danger">End Poll</button>
+  {% endif %}
+</div>
 </form>
 {% else %}
+{% if current and is_admin %}
+<form action="/end" method="POST" class="container">
+  <button type="submit" class="danger">End Poll</button>
+</form>
+{% endif %}
+</div>
 </div>
 {% endif %}

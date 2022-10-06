@@ -44,6 +44,9 @@ body {
     --vote-option-percent-bg: #777777;
     --vote-option-percent-bg-hover: #55b1f2;
     --vote-option-percent-bg-selected: #0394fc;
+
+    --danger-bg: #eb6967;
+    --danger-bg-hover: #eb5e5b;
   }
 }
 @media (prefers-color-scheme: light) {
@@ -71,6 +74,9 @@ body {
     --vote-option-percent-bg: #cccccc;
     --vote-option-percent-bg-hover: #55b1f2;
     --vote-option-percent-bg-selected: #0394fc;
+
+    --danger-bg: #f0413e;
+    --danger-bg-hover: #ed7977;
   }
 }
 
@@ -277,11 +283,11 @@ button:hover {
   background-color: var(--option-bg-selected);
 }
 
-form .footer {
+.footer {
   margin-top: 30px;
 }
 
-form .footer > * {
+.footer > * {
   margin-right: 8px;
 }
 
@@ -291,6 +297,14 @@ button[type="submit"] {
 
 button[type="submit"]:hover {
   background-color: var(--submit-hover);
+}
+
+button[type="submit"].danger {
+  background-color: var(--danger-bg);
+}
+
+button[type="submit"].danger:hover {
+  background-color: var(--danger-bg-hover);
 }
 
 .container {
