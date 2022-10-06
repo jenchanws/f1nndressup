@@ -72,7 +72,7 @@ def start_poll():
   return redirect("/")
 
 
-@api.route("/end")
+@api.route("/end", methods=["POST"])
 def end():
   if not is_admin():
     return redirect("/")

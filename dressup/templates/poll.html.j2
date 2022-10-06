@@ -41,7 +41,9 @@ const endTime = new Date("{{ poll["end_time"].isoformat() }}")
     {% endif %}
   </div>
 {% if current and is_admin %}
-  <a class="button" href="/end">End Poll</a>
+  <form action="/end" method="POST" class="container">
+    <button type="submit">End Poll</button>
+  </form>
 {% endif %}
 {% if can_vote %}
   <button type="submit">Vote</button>
