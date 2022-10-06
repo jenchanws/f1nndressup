@@ -36,6 +36,7 @@ function updateCountdown(secsLeft) {
   if (secsLeft <= 0) {
     secsLeft = 0
     location.href = "/"
+    return
   }
   const mins = "" + Math.floor(secsLeft / 60)
   let secs = secsLeft - mins * 60
