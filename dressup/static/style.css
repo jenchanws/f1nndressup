@@ -7,6 +7,8 @@ body {
   margin: 0;
   height: 100%;
   font-size: 18px;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 :root {
@@ -173,8 +175,6 @@ button {
   background-color: var(--btn-bg);
   color: var(--btn-fg);
   text-decoration: none;
-  user-select: none;
-  -webkit-user-select: none;
 }
 
 button {
@@ -299,8 +299,6 @@ button[type="submit"]:hover {
 
 .countdown {
   text-align: left;
-  user-select: none;
-  -webkit-user-select: none;
 }
 
 #time-left {
@@ -312,8 +310,6 @@ button[type="submit"]:hover {
   margin: 30px -20px;
   display: flex;
   flex-flow: row wrap;
-  user-select: none;
-  -webkit-user-select: none;
 }
 
 .poll .category {
