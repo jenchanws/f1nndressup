@@ -55,3 +55,23 @@ try {
   const secsLeft = Math.floor((endTime - new Date()) / 1000)
   updateCountdown(secsLeft)
 } catch {}
+
+if (document.getElementById("create-form")) {
+  let form = document.getElementById("create-form")
+
+  function handleSubmitFilter() {
+    let form = document.getElementById("create-form")
+    const categoriesSelected = Array.from(
+      form.querySelectorAll("input[type=checkbox][name=categories]")
+    ).filter((e) => e.checked).length
+    const durationSelected =
+      Array.from(
+        form.querySelectorAll("input[type=radio][name=duration]")
+      ).filter((e) => e.checked).length !== 0
+    form.querySelector("button[type=submit]").disabled =
+      categoriesSelected == 0 || !durationSelected
+  }
+
+  handleSubmitFilter()
+  form.addEventListener("change", handleSubmitFilter)
+}

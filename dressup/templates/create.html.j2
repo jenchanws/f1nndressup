@@ -2,7 +2,7 @@
 
 {% block content %}
 <main>
-  <form action="/create" method="POST">
+  <form action="/create" method="POST" id="create-form">
     <h3>Select categories to vote on:</h3>
 
     {% if categories %}
@@ -26,7 +26,7 @@
     <div class="footer">
       <a class="button" href="/">Cancel</a>
       {% if categories %}
-        <button type="submit">Start Poll</button>
+        <button type="submit">Create Poll</button>
       {% endif %}
     </div>
   </form>

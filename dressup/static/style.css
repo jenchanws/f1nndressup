@@ -299,6 +299,12 @@ button[type="submit"]:hover {
   background-color: var(--submit-hover);
 }
 
+button[type="submit"]:disabled {
+  background-color: var(--btn-bg);
+  opacity: 40%;
+  cursor: not-allowed;
+}
+
 button[type="submit"].danger {
   background-color: var(--danger-bg);
 }
