@@ -1,6 +1,7 @@
 class Config:
   SECRET_KEY = None
 
+  BASE_URL = None
   DATABASE_URL = None
   REDIS_URL = None
 

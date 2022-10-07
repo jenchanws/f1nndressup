@@ -1,15 +1,14 @@
 from flask import Blueprint, current_app, redirect, session, url_for
 
 from dressup.auth import get_user_info, oauth
+from dressup.config import Config
 
 api = Blueprint("auth", __name__)
 
 
 @api.route("/login")
 def login():
-  return oauth.twitch.authorize_redirect(
-    url_for("auth.authorize", _external=True),
-  )
+  return oauth.twitch.authorize_redirect(f"{Config.BASE_URL}/authorize")
 
 
 @api.route("/authorize")
